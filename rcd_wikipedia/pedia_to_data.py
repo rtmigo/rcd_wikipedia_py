@@ -1,34 +1,49 @@
+# SPDX-FileCopyrightText: (c) 2020 Artёm IG <github.com/rtmigo>
+# SPDX-License-Identifier: MIT
+
+
 import json
-import time
 import urllib.parse
 import warnings
 from typing import *
 
-import rcd.just
+import requests
 
 # https://en.wikipedia.org/w/index.php?title=Gregorio_Castaneda&action=edit&redlink=1
 from rcd_wikipedia.urls import articleUrlToTitle
 
 
-def article_url_to_wikidata_id(url: str, cache_sec=60 * 60 * 24) \
-		-> Optional[str]:
+def session_get(session: Optional[requests.Session],
+                *args, **kwargs) -> requests.Response:
+    close = False
+    if session is None:
+        close = True
+        session = requests.Session()
+    try:
+        return session.get(*args, **kwargs)
+    finally:
+        if close:
+            session.close()
 
 
+def article_url_to_wikidata_id(url: str,
+                               session: requests.Session = None) \
+        -> Optional[str]:
     host = urllib.parse.urlparse(url).netloc
     title = articleUrlToTitle(url)
 
-    query = f"https://{host}/w/api.php?action=query&prop=pageprops&titles={title}&format=json"
-    jsonCode = rcd.just.getData(query, text=True, cacheSec=cache_sec,
-								beforeDownloadFunc=lambda: time.sleep(1 / 3))
-    # print(jsonCode)
+    query = f"https://{host}/w/api.php?action=query" \
+            f"&prop=pageprops&titles={title}&format=json"
+    json_code = session_get(session, url=query).text
 
-    pages = json.loads(jsonCode)["query"]["pages"]
+    # json_code = rcd.just.getData(query, text=True, cacheSec=cache_sec,
+    #                             beforeDownloadFunc=lambda: time.sleep(1 / 3))
+
+    pages = json.loads(json_code)["query"]["pages"]
     firstPage = next(iter(pages.values()))
     # print(firstPage)
     return firstPage["pageprops"]["wikibase_item"]
 
-
-# print(jsonCode)
 
 # 135/636 https://en.wikipedia.org/w/index.php?title=Gregorio_Castaneda&action=edit&redlink=1-> Q395712
 
@@ -37,10 +52,8 @@ def article_url_to_wikidata_id(url: str, cache_sec=60 * 60 * 24) \
 
 def articleUrlToWikidataId(*args, **kwargs):
     warnings.warn("Obsolete", DeprecationWarning)
-    article_url_to_wikidata_id(*args, **kwargs)
+    return article_url_to_wikidata_id(*args, **kwargs)
 
 
 if __name__ == "__main__":
     pass
-
-# TestWikipedia().test_to_title()

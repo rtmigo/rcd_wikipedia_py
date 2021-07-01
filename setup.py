@@ -25,15 +25,15 @@ setup(
 
     author="Artëm IG",
     author_email="ortemeo@gmail.com",
-    url='https://github.com/rtmigo/znuploader_py',
+    url='https://github.com/rtmigo/rcd_wikipedia_py',
 
     packages=find_packages(include=['rcd_wikipedia/*']),
 
     install_requires=[
-        "rcd@ git+https://github.com/rtmigo/rcd_py",
+        #"rcd@ git+https://github.com/rtmigo/rcd_py",
     ],
 
-    # description="Command-line tool for managing Python virtual environments",
+    description="Reusable code for wikipedia and wikidata",
 
     long_description=readme,
     long_description_content_type='text/markdown',
@@ -48,12 +48,7 @@ setup(
         'License :: OSI Approved :: BSD License',
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
-        "Environment :: Console",
         "Typing :: Typed",
-        "Topic :: Software Development :: Build Tools",
         "Operating System :: POSIX",
-        # "Operating System :: Microsoft :: Windows"
-    ],
-
-    test_suite="test_unit.suite"
+     ],
 )
