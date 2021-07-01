@@ -27,7 +27,7 @@ setup(
     author_email="ortemeo@gmail.com",
     url='https://github.com/rtmigo/rcd_wikipedia_py',
 
-    packages=find_packages(), #include=['rcd_wikipedia/*']),
+    packages=find_packages(exclude=['tests']), #include=['rcd_wikipedia/*']),
 
     install_requires=["requests"],
 
@@ -38,7 +38,7 @@ setup(
 
     license="MIT",
 
-    keywords="".split(),
+    keywords="wikipedia wikidata".split(),
 
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
