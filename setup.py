@@ -29,9 +29,7 @@ setup(
 
     packages=find_packages(include=['rcd_wikipedia/*']),
 
-    install_requires=[
-        #"rcd@ git+https://github.com/rtmigo/rcd_py",
-    ],
+    install_requires=["requests"],
 
     description="Reusable code for wikipedia and wikidata",
 
