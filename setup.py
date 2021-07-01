@@ -27,7 +27,7 @@ setup(
     author_email="ortemeo@gmail.com",
     url='https://github.com/rtmigo/rcd_wikipedia_py',
 
-    packages=find_packages(include=['rcd_wikipedia/*']),
+    packages=find_packages(), #include=['rcd_wikipedia/*']),
 
     install_requires=["requests"],
 
@@ -41,12 +41,9 @@ setup(
     keywords="".split(),
 
     classifiers=[
-        "Development Status :: 4 - Beta",
-        "Intended Audience :: Developers",
-        'License :: OSI Approved :: BSD License',
+        "Development Status :: 2 - Pre-Alpha",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Typing :: Typed",
-        "Operating System :: POSIX",
      ],
 )
