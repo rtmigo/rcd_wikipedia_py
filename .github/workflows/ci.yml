@@ -36,10 +36,9 @@ jobs:
           python -m pip install --upgrade setuptools distlib
           pip install -e .
           pip install -r requirements.txt
-# if [ -f requirements.txt ]; then
-#      - name: Lint
-#        run: |
-#          python3 ./lint.py
+      - name: Lint
+        run: |
+          python3 ./lint.py
       - name: Run unit tests
         run: |
           pip3 install neatest
